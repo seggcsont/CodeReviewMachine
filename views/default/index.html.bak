@@ -1,0 +1,5 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,False}}
+response.files.insert(0,URL('static','css/table.css'))
+{{extend 'layout.html'}}
+
+{{=reviews}}

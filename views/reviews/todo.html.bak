@@ -1,0 +1,3 @@
+{{response.files.insert(0,URL('static','css/table.css'))}}
+{{extend 'layout.html'}}
+{{=table}}
