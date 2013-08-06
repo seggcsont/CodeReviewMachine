@@ -28,7 +28,7 @@ response.menu = [
 ]
 
 
-DEVELOPMENT_MENU = True
+DEVELOPMENT_MENU = False
 
 #########################################################################
 ## provide shortcuts for development. remove in production
@@ -137,7 +137,7 @@ def _():
                 ]
          )]
 
-if "auth" in locals(): 
+if auth.user: 
     response.menu.append((T('My reviews'), False, None, [
         (T('To do'), False, URL('reviews', 'todo'), []),
         (T('Done'), False, URL('reviews', 'done'), [])

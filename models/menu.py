@@ -137,10 +137,11 @@ def _():
                 ]
          )]
 
-if "auth" in locals(): 
+if auth.user: 
     response.menu.append((T('My reviews'), False, None, [
         (T('To do'), False, URL('reviews', 'todo'), []),
-        (T('Done'), False, URL('reviews', 'done'), [])
+        (T('Done'), False, URL('reviews', 'done'), []),
+        (T('Reported'), False, URL('reviews', 'reported'), [])
     ]))
     auth.wikimenu()
 if DEVELOPMENT_MENU: _()

@@ -34,10 +34,10 @@ nosetests.xml
 .project
 .pydevproject
 *.pyc 
-cache/ 
+cache/* 
 databases/* 
-errors/ 
-sessions/  
+errors/** 
+sessions/**  
 private/
 uploads/*
 .hg/

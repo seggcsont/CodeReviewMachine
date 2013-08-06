@@ -1,6 +1,8 @@
 # coding: utf8
 # try something like
-import random
+#import random
+import review_assigner.py
+
 def index(): return dict(message="hello from changelist.py")
 
 @auth.requires_login()
@@ -22,5 +24,6 @@ def is_changelist_uniqeue(form):
         form.errors.tr_changelist = 'Changelist has been already added!'
 
 def get_random_user():
-    users = db(db.auth_user.id!=auth.user_id).select(db.auth_user.ALL)
-    return users[random.randint(0,len(users)-1)]
+    #users = db(db.auth_user.id!=auth.user_id).select(db.auth_user.ALL)
+    #return users[random.randint(0,len(users)-1)]
+    return review_assigner.get_next_user(db, auth.user_id)
