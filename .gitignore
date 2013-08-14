@@ -1,6 +1,6 @@
 *.pyc
-*.bak
+**/*.bak
 errors/**
 sessions/**
 cache/**
-database/**
+databases/**

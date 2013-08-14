@@ -15,7 +15,7 @@ class ReviewAssigner(object):
         while 1:
             if self.index >= len(self.users):
                 self.reset(db)
-            if self.users[self.index]!=user_id:
+            if self.users[self.index].id!=user_id:
                 self.index += 1
                 return self.users[self.index-1]
             self.index += 1
