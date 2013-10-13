@@ -165,6 +165,7 @@
 'Stylesheet': 'Stylesheet',
 'submit': 'submit',
 'Submit': 'Submit',
+'Success!': 'Success!',
 'Support': 'Support',
 'Sure you want to delete this object?': 'Biztos törli ezt az objektumot?',
 'Table': 'tábla',

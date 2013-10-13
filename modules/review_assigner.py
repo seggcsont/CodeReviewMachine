@@ -25,7 +25,7 @@ class ReviewAssigner(object):
         
     def reset(self, db):
         self.index=0
-        self.users=db((db.auth_user.id==db.auth_membership.user_id)&(db.auth_membership.group_id==15)).select(db.auth_user.ALL)
+        self.users=db(db.auth_user.is_active==True).select(db.auth_user.ALL)
         #self.users=db(db.auth_user).select(db.auth_user.ALL)
 ra=None
 def get_next_user(db,user_id):

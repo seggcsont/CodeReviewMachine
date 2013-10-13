@@ -44,6 +44,7 @@ auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
 ## create all tables needed by auth if not custom tables
+auth.settings.extra_fields['auth_user']= [Field('is_active','boolean',default=True)]
 auth.define_tables(username=False, signature=False)
 
 ## configure email
@@ -89,5 +90,6 @@ db.define_table('to_review',
     primarykey=['tr_changelist'])
 
 db.to_review.tr_changelist.requires=IS_NOT_IN_DB(db,'to_review.tr_changelist')
+
 ## after defining tables, uncomment below to enable auditing
 auth.enable_record_versioning(db)
