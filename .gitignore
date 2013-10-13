@@ -4,3 +4,5 @@ errors/**
 sessions/**
 cache/**
 databases/**
+progress.log
+routes.example.py
