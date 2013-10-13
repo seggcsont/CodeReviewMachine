@@ -8,6 +8,7 @@
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
+import property_handler.py
 
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
@@ -49,9 +50,9 @@ auth.define_tables(username=False, signature=False)
 
 ## configure email
 mail = auth.settings.mailer
-mail.settings.server = 'logging' or 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
-mail.settings.login = 'username:password'
+mail.settings.server = property_handler.get_property("Email", "server") or 'logger'
+mail.settings.sender = property_handler.get_property("Email", "sender") or ''
+mail.settings.login = property_handler.get_property("Email", "username") + ':' + property_handler.get_property("Email", "password")
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
