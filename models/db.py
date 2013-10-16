@@ -40,19 +40,23 @@ response.generic_patterns = ['*'] if request.is_local else []
 ## (more options discussed in gluon/tools.py)
 #########################################################################
 
-from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
+from gluon.tools import Auth, Crud, Service, PluginManager, prettydate, Mail
+from gluon import current
+import ConfigParser, os
 auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
+config=ConfigParser.ConfigParser()
+config.read(os.path.join(current.request.folder,"config.ini"))
 
 ## create all tables needed by auth if not custom tables
 auth.settings.extra_fields['auth_user']= [Field('is_active','boolean',default=True)]
 auth.define_tables(username=False, signature=False)
 
 ## configure email
-mail = auth.settings.mailer
-mail.settings.server = property_handler.get_property("Email", "server") or 'logger'
-mail.settings.sender = property_handler.get_property("Email", "sender") or ''
-mail.settings.login = property_handler.get_property("Email", "username") + ':' + property_handler.get_property("Email", "password")
+mail = Mail()
+mail.settings.server = config.get('Email','server') or 'logger'
+mail.settings.sender = config.get('Email','sender')
+mail.settings.login =  config.get('Email','username') + ':' +  config.get('Email','password')
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
