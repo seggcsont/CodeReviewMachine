@@ -47,6 +47,7 @@ auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 config=ConfigParser.ConfigParser()
 config.read(os.path.join(current.request.folder,"config.ini"))
+current.config=config
 
 ## create all tables needed by auth if not custom tables
 auth.settings.extra_fields['auth_user']= [Field('is_active','boolean',default=True)]

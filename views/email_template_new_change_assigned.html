@@ -1,0 +1,8 @@
+<html>
+<h2>Dear {{=name}}!</h2>
+
+<p>A new change has been assigned to you (<b>{{=change_id}}</b>).</p>
+<p>Please visit {{=link}} to do the review.</p>
+
+{{=DIV(A(B('Code',SPAN(' Review '),'Machine'), _class="brand",_href=URL('default','index',host=True)))}}
+</html>
