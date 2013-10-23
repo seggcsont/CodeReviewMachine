@@ -7,9 +7,9 @@ def index(): return dict(message="hello from changelist.py")
 
 @auth.requires_login()
 def add():
-    form = FORM("Add changelist",
-                DIV(INPUT(_name="tr_changelist", requires=IS_MATCH('^\d+$',error_message='Must be a number'))),
-                DIV(INPUT(_type="submit", _label='Add')))
+    form = FORM(BUTTON('Add', _type="submit", _class="btn"),
+                INPUT(_name="tr_changelist", _placeholder="Changelist number", requires=IS_MATCH('^\d+$',error_message='Must be a number')),
+                _class="form-search")
     if form.process(onvalidation=is_changelist_uniqeue).accepted:
         assigned_user = get_random_user()
         

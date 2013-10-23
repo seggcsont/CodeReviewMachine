@@ -17,27 +17,28 @@ def index():
     if you need a simple wiki simple replace the two lines below with:
     return auth.wiki()
     """
-    response.title="Changelists"
+    response.title=" "
+    response.subtitle="Changelists"
     reviews_from_db = db(db.to_review).select(orderby=~db.to_review.tr_changelist)
     if request.vars.rows:
         reviews_from_db = reviews_from_db[:int(request.vars.rows)]
     
-    rows = [DIV(
-                DIV('Changelist',_class='table-cell'),
-                DIV('Reporter',_class='table-cell'),
-                DIV('Added',_class='table-cell'),
-                DIV('Reviewer',_class='table-cell'),
-                DIV('Reviewed',_class='table-cell'),
-            _class='table-header table-row')]
+    rows = [TR(
+                TH('Changelist'),
+                TH('Reporter'),
+                TH('Added'),
+                TH('Reviewer'),
+                TH('Reviewed'))
+            ]
     for review in reviews_from_db:
-        rows.append(DIV(
-                        DIV(review.tr_changelist,_class='table-cell'),
-                        DIV(get_user_display_name(review.tr_reporter_id),_class='table-cell'),
-                        DIV(review.tr_added,_class='table-cell'),
-                        DIV(get_user_display_name(review.tr_reviewer_id),_class='table-cell'),
-                        DIV(review.tr_reviewed,_class='table-cell'),
-                    _class='table-row'))
-    reviews = DIV(*rows,_class='table')
+        rows.append(TR(
+                        TD(review.tr_changelist),
+                        TD(get_user_display_name(review.tr_reporter_id)),
+                        TD(review.tr_added),
+                        TD(get_user_display_name(review.tr_reviewer_id)),
+                        TD(review.tr_reviewed)
+                        ))
+    reviews = TABLE(*rows,_class='table table-condensed table-striped')
     return dict(reviews=reviews)
 
 def get_user_display_name(user_id):

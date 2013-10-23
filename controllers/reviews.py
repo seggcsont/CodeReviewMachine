@@ -4,7 +4,8 @@ from utils import *
 
 @auth.requires_login()
 def todo():
-    response.title='Reviews to do'
+    response.title=" "
+    response.subtitle='Reviews to do'
     forms = []
     
     to_do_reviews = db((db.to_review.tr_reviewer_id==auth.user_id)&(db.to_review.tr_reviewed==None)).select(orderby=~db.to_review.tr_changelist)
@@ -17,7 +18,7 @@ def todo():
     for review in to_do_reviews:
         form = SQLFORM.factory(Field('comment','string', requires=IS_NOT_EMPTY()),
                 table_name=str(review.tr_changelist),
-                formstyle='divs',
+                formstyle='ul',
                 labels={'comment':''})
         table_content.append(DIV(
             DIV(review.tr_changelist,_class='table-cell'),
@@ -37,47 +38,46 @@ def todo():
 
 @auth.requires_login()
 def done(): 
-    response.title='Reviews done'
+    response.title=" "
+    response.subtitle='Reviews done'
     done_reviews = db((db.to_review.tr_reviewer_id==auth.user_id)&~(db.to_review.tr_reviewed==None)).select(orderby=~db.to_review.tr_changelist)
-    table_content = [DIV(
-        DIV('Changelist',_class='table-cell'),
-        DIV('Reporter',_class='table-cell'),
-        DIV('Added',_class='table-cell'),
-        DIV('Reviewed',_class='table-cell'),
-        DIV('Comment',_class='table-cell'),
-        _class='table-header table-row')]
+    table_content = [TR(
+        TH('Changelist'),
+        TH('Reporter'),
+        TH('Added'),
+        TH('Reviewed'),
+        TH('Comment'))]
     
     for review in done_reviews:
-        table_content.append(DIV(
-            DIV(review.tr_changelist,_class='table-cell'),
-            DIV(get_user_display_name(review.tr_reporter_id),_class='table-cell'),
-            DIV(review.tr_added,_class='table-cell'),
-            DIV(review.tr_reviewed,_class='table-cell'),
-            DIV(review.tr_comment,_class='table-cell'),
-            _class='table-row'))
-    return dict(table=DIV(*table_content,_class='table'))
+        table_content.append(TR(
+            TD(review.tr_changelist),
+            TD(get_user_display_name(review.tr_reporter_id)),
+            TD(review.tr_added),
+            TD(review.tr_reviewed),
+            TD(review.tr_comment)
+            ))
+    return dict(table=TABLE(*table_content,_class='table table-condensed table-striped'))
 
 @auth.requires_login()
 def reported(): 
-    response.title='Reviews reported'
+    response.title=" "
+    response.subtitle='Reviews reported'
     done_reviews = db(db.to_review.tr_reporter_id==auth.user_id).select(orderby=~db.to_review.tr_changelist)
-    table_content = [DIV(
-        DIV('Changelist',_class='table-cell'),
-        DIV('Reviewer',_class='table-cell'),
-        DIV('Added',_class='table-cell'),
-        DIV('Reviewed',_class='table-cell'),
-        DIV('Comment',_class='table-cell'),
-        _class='table-header table-row')]
+    table_content = [TR(
+        TH('Changelist'),
+        TH('Reviewer'),
+        TH('Added'),
+        TH('Reviewed'),
+        TH('Comment'))]
     
     for review in done_reviews:
-        table_content.append(DIV(
-            DIV(review.tr_changelist,_class='table-cell'),
-            DIV(get_user_display_name(review.tr_reviewer_id),_class='table-cell'),
-            DIV(review.tr_added,_class='table-cell'),
-            DIV(review.tr_reviewed,_class='table-cell'),
-            DIV(review.tr_comment,_class='table-cell'),
-            _class='table-row'))
-    return dict(table=DIV(*table_content,_class='table'))
+        table_content.append(TR(
+            TD(review.tr_changelist),
+            TD(get_user_display_name(review.tr_reviewer_id)),
+            TD(review.tr_added),
+            TD(review.tr_reviewed),
+            TD(review.tr_comment)))
+    return dict(table=TABLE(*table_content,_class='table table-condensed table-striped'))
     
 def get_user_display_name(user_id):
     user = db(db.auth_user.id==user_id).select().first()
