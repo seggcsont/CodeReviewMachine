@@ -1,0 +1,12 @@
+<html>
+<h2>Dear {{=name}}!</h2>
+
+<p>The maximum limit of pending review has been reached.</p>
+<p>Please visit {{=link}} to do the review.</p>
+
+    {{=reviews_to_do}}
+    <br/>
+<footer>
+{{=DIV(A(B('Code',SPAN(' Review '),'Machine'), _class="brand",_href=URL('default','index',host=True)))}}
+<footer>
+</html>
