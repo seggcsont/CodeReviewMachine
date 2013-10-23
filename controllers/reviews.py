@@ -33,7 +33,7 @@ def todo():
             session.flash="Comment saved"
             redirect(URL())
 
-    return dict(table=DIV(*table_content,_class='table'))
+    return dict(table=DIV(*table_content,_class='table'),msg=DIV("Congratulation! You've done all reviews!",_class="alert alert-success") if len(to_do_reviews)==0 else "")
 
 @auth.requires_login()
 def done(): 

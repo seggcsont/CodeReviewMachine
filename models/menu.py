@@ -24,7 +24,8 @@ response.google_analytics_id = None
 #########################################################################
 
 response.menu = [
-    (T('Add changelist'), False, URL('changelist', 'add'), [])
+    (T('Add changelist'), False, URL('changelist', 'add'), []),
+    (T('Users'), False, URL('users', 'index'), [])
 ]
 
 
